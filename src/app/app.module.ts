@@ -1,3 +1,4 @@
+import { LocationService } from './services/location-service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -15,7 +16,7 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,19 @@
-<GridLayout columns="50, auto, *" rows="50, auto, *" width="210" height="210" backgroundColor="lightgray" >
-    <Button text={{test}} row="0" col="0" colSpan="3" backgroundColor="red" (tap)="getLocation()"></Button>
-    <Label text="Label 3" row="1" col="0" rowSpan="2" backgroundColor="blue"></Label>
-    <Label text="Label 7" row="1" col="1" rowspan="2" colspan="2" backgroundColor="purple"></Label>
-</GridLayout>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd">
+    <FlexboxLayout flexDirection="column" backgroundColor="white">
+        <Label visibility="{{ selectedTeam === null ? 'visible' : 'collapsed' }}" 
+            alignSelf="center" text="Choose a team..." height="50" backgroundColor="white"></Label>
+        <ListView visibility="{{ selectedTeam === null ? 'visible' : 'collapsed' }}" alignSelf="center" 
+            width="200" height="240" [items]="teams" (itemTap)="selectedIndexChanged($event)" class="list-group">
+            <ng-template let-team="item" let-i="index" let-odd="odd" let-even="even">
+                <!-- The item template can only have a single root view container (e.g. GridLayout, StackLayout, etc.)-->
+                <StackLayout orientation="horizontal" class="list-group-item">
+                    <Label [text]="team.teamName"></Label>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+        <Label visibility="{{ selectedTeam !== null ? 'visible' : 'collapsed' }}" text={{getSelectedTeamMessage()}}></Label>
+        <Button visibility="{{ locationTrackingEnabled !== true ? 'visible' : 'collapsed' }}" text="Start tracking!" (tap)="getAndSendLocation()"
+            height="50" backgroundColor="gray"></Button>
+        <Label visibility="{{ locationTrackingEnabled === true ? 'visible' : 'collapsed' }}" text="Your location is now being tracked, thank you."></Label>
+    </FlexboxLayout>
+</Page>
